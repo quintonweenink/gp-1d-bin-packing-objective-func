@@ -18,17 +18,17 @@ class Tree(object):
         self.index = 0
         self.nodes = []
 
-        self.root.reindex()
+        self.root.reindex(0)
 
     def grow(self):
         self.root = FuncNode(self, None, 0)
         self.root.grow()
-        self.root.reindex()
+        self.root.reindex(0)
 
     def full(self):
         self.root = FuncNode(self, None, 0)
         self.root.full()
-        self.root.reindex()
+        self.root.reindex(0)
 
     def crossover(self, branch):
         branchIdx = random.randint(0, len(self.nodes) - 1)

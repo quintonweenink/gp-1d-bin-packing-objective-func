@@ -10,8 +10,8 @@ class Node(object):
     def copy(self, prev, depth):
         raise NotImplemented
 
-    def reindex(self):
-        self.index = 0
+    def reindex(self, depth):
+        self.depth = depth
         self.index = self.tree.index
         self.tree.index += 1
         self.tree.nodes.append(self)

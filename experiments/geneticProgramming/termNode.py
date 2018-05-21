@@ -25,4 +25,4 @@ class TermNode(Node):
         return self.tree.termSet[self.value]
 
     def toString(self):
-        return '(' + str(self.index) + ')   ' + str(self.tree.termSet[self.value]) + '\n'
+        return '[' + str(self.depth) + '](' + str(self.index) + ')   ' + str(self.tree.termSet[self.value]) + '\n'

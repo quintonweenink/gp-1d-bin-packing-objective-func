@@ -21,10 +21,10 @@ class FuncNode(Node):
 
         return copy
 
-    def reindex(self):
-        super(FuncNode, self).reindex()
+    def reindex(self, depth):
+        super(FuncNode, self).reindex(depth)
         for edge in self.edges:
-            edge.reindex()
+            edge.reindex(depth + 1)
 
     def grow(self):
         self.assignFunc()
@@ -35,7 +35,9 @@ class FuncNode(Node):
             for i in range(self.numEdges):
                 draw = random.random()
                 if draw > 0.3:
-                    self.addFuncNode()
+                    funcNode = FuncNode(self.tree, self, self.depth + 1)
+                    funcNode.grow()
+                    self.edges.append(funcNode)
                 else:
                     self.addTermNode()
 
@@ -46,7 +48,9 @@ class FuncNode(Node):
                 self.addTermNode()
         else:
             for i in range(self.numEdges):
-                self.addFuncNode()
+                funcNode = FuncNode(self.tree, self, self.depth + 1)
+                funcNode.full()
+                self.edges.append(funcNode)
 
 
     def assignFunc(self):
@@ -60,17 +64,12 @@ class FuncNode(Node):
         termNode.full()
         self.edges.append(termNode)
 
-    def addFuncNode(self):
-        funcNode = FuncNode(self.tree, self, self.depth + 1)
-        funcNode.full()
-        self.edges.append(funcNode)
-
     def execute(self):
         results = [i.execute() for i in self.edges]
         return self.function(results)
 
     def toString(self):
-        treeStr = '(' + str(self.index) + ')   ' + self.funcStr + '\t' + self.edges[0].toString()
+        treeStr = '[' + str(self.depth) + '](' + str(self.index) + ')   ' + self.funcStr + '\t' + self.edges[0].toString()
         for i, edge in enumerate(self.edges):
             if not i == 0:
                 treeStr += '\t' * (self.depth + 1)
