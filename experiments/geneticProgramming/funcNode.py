@@ -69,7 +69,7 @@ class FuncNode(Node):
         try:
             return self.function(results)
         except Exception:
-            return 1
+            return float('inf')
 
     def toString(self):
         treeStr = '[' + str(self.depth) + '](' + str(self.index) + ')   ' + self.funcStr + '\t' + self.edges[0].toString()

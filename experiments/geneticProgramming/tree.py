@@ -11,6 +11,7 @@ class Tree(object):
 
         self.funcSet = funcSet
         self.termSet = termSet
+        self.termSetRep = ['S_i', 'F_i', 'W_i', 'F_n', 'C', '1', '1']
 
         self.index = 0
         self.nodes = []
@@ -38,9 +39,9 @@ class Tree(object):
         self.root.full()
         self.root.reindex(0)
 
-    def getBranch(self):
+    def getBranch(self, tree):
         branchIdx = random.randint(0, len(self.nodes) - 1)
-        return self.nodes[branchIdx].copy(None, None, 0)
+        return self.nodes[branchIdx].copy(tree, None, 0)
 
     def setBranch(self, branch):
         branchIdx = random.randint(0, len(self.nodes) - 1)
@@ -51,11 +52,14 @@ class Tree(object):
                 if edge.index == rep.index:
                     prev.edges[i] = branch
 
-    def execute(self, arr, terms):
+        self.reindex()
+
+    def execute(self, sequences, terms):
         sum = 0
-        for i in arr:
+        for y in range(len(sequences[0])):
             self.termSet = terms
-            self.termSet.append(i)
+            for x in range(len(sequences)):
+                self.termSet.append(sequences[x][y])
             sum += self.root.execute()
         return sum
 
