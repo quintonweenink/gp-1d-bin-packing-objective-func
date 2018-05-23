@@ -7,7 +7,7 @@ class Node(object):
         self.depth = depth
         self.index = None
 
-    def copy(self, prev, depth):
+    def copy(self, tree, prev, depth):
         raise NotImplemented
 
     def reindex(self, depth):

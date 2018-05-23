@@ -11,13 +11,13 @@ class FuncNode(Node):
         self.funcStr = None
         self.edges = []
 
-    def copy(self, prev, depth):
-        copy = FuncNode(self.tree, prev, depth)
+    def copy(self, tree, prev, depth):
+        copy = FuncNode(tree, prev, depth)
         copy.function = self.function
         copy.numEdges = self.numEdges
         copy.funcStr = self.funcStr
         for edge in self.edges:
-            copy.edges.append(edge.copy(copy, depth + 1))
+            copy.edges.append(edge.copy(tree, copy, depth + 1))
 
         return copy
 
@@ -66,7 +66,10 @@ class FuncNode(Node):
 
     def execute(self):
         results = [i.execute() for i in self.edges]
-        return self.function(results)
+        try:
+            return self.function(results)
+        except Exception:
+            return 1
 
     def toString(self):
         treeStr = '[' + str(self.depth) + '](' + str(self.index) + ')   ' + self.funcStr + '\t' + self.edges[0].toString()

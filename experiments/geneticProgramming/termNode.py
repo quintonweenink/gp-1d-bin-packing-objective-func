@@ -7,8 +7,8 @@ class TermNode(Node):
         super(TermNode, self).__init__(tree, prev, depth)
         self.value = None
 
-    def copy(self, prev, depth):
-        copy = TermNode(self.tree, prev, depth)
+    def copy(self, tree, prev, depth):
+        copy = TermNode(tree, prev, depth)
         copy.value = self.value
         return copy
 
